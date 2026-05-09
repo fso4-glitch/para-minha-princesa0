@@ -1,7 +1,6 @@
 const puzzle = document.getElementById("puzzle");
 
-// posições corretas da imagem
-let correctPositions = [
+let positions = [
     "0px 0px",
     "-120px 0px",
     "-240px 0px",
@@ -13,29 +12,22 @@ let correctPositions = [
     "-240px -240px"
 ];
 
-// FUNÇÃO QUE EMBARALHA DE VERDADE
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
+// embaralhar
+positions.sort(() => Math.random() - 0.5);
 
-shuffle(correctPositions);
-
-// cria as peças embaralhadas
-correctPositions.forEach(pos => {
+// criar peças
+positions.forEach(pos => {
     let div = document.createElement("div");
     div.className = "piece";
     div.style.backgroundPosition = pos;
     puzzle.appendChild(div);
 });
 
-// troca ao clicar
 let primeira = null;
 
 document.querySelectorAll(".piece").forEach(piece => {
-    piece.addEventListener("click", () => {
+
+    piece.addEventListener("touchstart", () => {
         if (!primeira) {
             primeira = piece;
             piece.style.border = "2px solid red";
@@ -48,4 +40,5 @@ document.querySelectorAll(".piece").forEach(piece => {
             primeira = null;
         }
     });
+
 });
