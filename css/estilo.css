@@ -34,6 +34,11 @@ p {
     touch-action: none;
 }
 
+/* 🔒 ESCONDE A MUSICA */
+#musica {
+    display: none;
+}
+
 /* 💖 DECLARAÇÃO */
 #declaracao {
     margin-top: 30px;

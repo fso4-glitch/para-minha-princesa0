@@ -1,4 +1,8 @@
 const puzzle = document.getElementById("puzzle");
+const musica = document.getElementById("musica");
+
+// 🔒 garante que começa escondido
+musica.style.display = "none";
 
 const correto = [
   "0% 0%",
@@ -38,7 +42,7 @@ function embaralhar() {
   });
 }
 
-// verificar se completou
+// verificar
 function verificar() {
   let pieces = document.querySelectorAll(".piece");
   let certo = true;
@@ -51,21 +55,27 @@ function verificar() {
 
   if (certo) {
     setTimeout(() => {
+
+      // 💖 mostra declaração
       document.getElementById("declaracao").style.display = "block";
 
-      // 🔥 desce suave
+      // 🎵 mostra música
+      musica.style.display = "block";
+
+      // tenta tocar
+      musica.play().catch(() => {});
+
+      // scroll suave
       window.scrollTo({
         top: document.body.scrollHeight,
         behavior: "smooth"
       });
 
-      // 🔊 toca música automaticamente
-      document.getElementById("musica").play();
     }, 300);
   }
 }
 
-// troca peças
+// troca
 function trocar(a, b) {
   let temp = a.style.backgroundPosition;
   a.style.backgroundPosition = b.style.backgroundPosition;
