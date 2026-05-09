@@ -1,54 +1,51 @@
 const puzzle = document.getElementById("puzzle");
 
-// posições corretas
-let positions = [
-  "0px 0px",
-  "-120px 0px",
-  "-240px 0px",
-  "0px -120px",
-  "-120px -120px",
-  "-240px -120px",
-  "0px -240px",
-  "-120px -240px",
-  "-240px -240px"
-];
+// posições das peças (0 a 8)
+let pieces = [0,1,2,3,4,5,6,7,8];
 
-// EMBARALHAR FORTE (garantido)
+// embaralhar de verdade
 function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
-shuffle(positions);
+shuffle(pieces);
 
-// LIMPA antes (IMPORTANTE)
+// limpa antes
 puzzle.innerHTML = "";
 
-// cria peças
-positions.forEach(pos => {
-  let div = document.createElement("div");
-  div.className = "piece";
-  div.style.backgroundPosition = pos;
-  puzzle.appendChild(div);
+// cria peças embaralhadas
+pieces.forEach(num => {
+    let div = document.createElement("div");
+    div.className = "piece";
+
+    div.style.backgroundImage = "url('foto.jpg')";
+
+    let x = (num % 3) * 120;
+    let y = Math.floor(num / 3) * 120;
+
+    div.style.backgroundPosition = `-${x}px -${y}px`;
+
+    puzzle.appendChild(div);
 });
 
-// troca no toque (celular)
+// troca ao tocar/clicar
 let primeira = null;
 
 document.querySelectorAll(".piece").forEach(piece => {
-  piece.addEventListener("click", () => {
-    if (!primeira) {
-      primeira = piece;
-      piece.style.border = "2px solid red";
-    } else {
-      let temp = primeira.style.backgroundPosition;
-      primeira.style.backgroundPosition = piece.style.backgroundPosition;
-      piece.style.backgroundPosition = temp;
+    piece.addEventListener("click", () => {
+        if (!primeira) {
+            primeira = piece;
+            piece.style.border = "2px solid red";
+        } else {
+            let temp = primeira.style.backgroundPosition;
+            primeira.style.backgroundPosition = piece.style.backgroundPosition;
+            piece.style.backgroundPosition = temp;
 
-      primeira.style.border = "1px solid #fff";
-      primeira = null;
-    }
-  });
+            primeira.style.border = "1px solid #fff";
+            primeira = null;
+        }
+    });
 });

@@ -7,17 +7,14 @@ body {
 #puzzle {
     width: 360px;
     height: 360px;
-    margin: 20px auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+    margin: 20px auto;
 }
 
 .piece {
     width: 120px;
     height: 120px;
-    background-image: url('../foto.jpg'); /* CAMINHO CORRETO */
-    background-size: 360px 360px;
-    cursor: pointer;
     border: 1px solid #fff;
+    background-size: 360px 360px;
 }

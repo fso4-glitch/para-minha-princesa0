@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para meu amor ❤️</title>
-  <link rel="stylesheet" href="css/estilo.css">
+<meta charset="UTF-8">
+<title>Para meu amor ❤️</title>
+<link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
 
@@ -20,21 +19,11 @@ Cada pedacinho guarda um pedacinho do que sinto por você.
 
 <div id="puzzle"></div>
 
-<audio autoplay loop controls>
+<audio controls loop>
     <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<script>
-const puzzle = document.getElementById("puzzle");
-
-for(let i=0;i<9;i++){
-    let div = document.createElement("div");
-    div.className = "piece";
-    div.style.backgroundPosition =
-    `${-(i%3)*120}px ${-Math.floor(i/3)*120}px`;
-    puzzle.appendChild(div);
-}
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
