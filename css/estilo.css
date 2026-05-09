@@ -1,29 +1,23 @@
 body {
-  background-color: #ffdde1;
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
-
-h1 {
-  color: #ff4d6d;
-}
-
-p {
-  font-size: 18px;
+    text-align: center;
+    background-color: #ffe6f0;
+    font-family: Arial, sans-serif;
 }
 
 #puzzle {
-  width: 360px;
-  height: 360px;
-  margin: 20px auto;
-  display: flex;
-  flex-wrap: wrap;
+    width: 360px;
+    height: 360px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
 }
 
 .piece {
-  width: 120px;
-  height: 120px;
-  border: 1px solid white;
-  background-image: url("../img/foto.jpg");
-  background-size: 360px 360px;
+    width: 120px;
+    height: 120px;
+    background-image: url('../foto.jpg'); /* CAMINHO CORRETO */
+    background-size: 360px 360px;
+    cursor: pointer;
+    border: 1px solid #fff;
 }
