@@ -1,75 +1,40 @@
-const btn = document.getElementById("btn");
-const conteudo = document.getElementById("conteudo");
 const puzzle = document.getElementById("puzzle");
-const finalMsg = document.getElementById("final");
 
-btn.onclick = () => {
-    conteudo.classList.remove("hidden");
-    btn.style.display = "none";
-    criarPuzzle();
-};
+let positions = [];
 
-let ordem = [];
-
-function criarPuzzle() {
-    puzzle.innerHTML = "";
-    ordem = [...Array(9).keys()];
-
-    ordem.sort(() => Math.random() - 0.5);
-
-    ordem.forEach((num, index) => {
-        const div = document.createElement("div");
-        div.className = "piece";
-        div.draggable = true;
-        div.dataset.index = index;
-        div.dataset.value = num;
-
-        div.style.backgroundPosition =
-            `${-(num % 3) * 100}px ${-Math.floor(num / 3) * 100}px`;
-
-        div.addEventListener("dragstart", dragStart);
-        div.addEventListener("dragover", dragOver);
-        div.addEventListener("drop", drop);
-
-        puzzle.appendChild(div);
-    });
+// cria posições corretas
+for (let i = 0; i < 9; i++) {
+    positions.push(
+        `${-(i % 3) * 120}px ${-Math.floor(i / 3) * 120}px`
+    );
 }
 
-let dragged;
+// embaralha as posições
+positions.sort(() => Math.random() - 0.5);
 
-function dragStart(e) {
-    dragged = e.target;
-}
+// cria peças já embaralhadas
+positions.forEach(pos => {
+    let div = document.createElement("div");
+    div.className = "piece";
+    div.style.backgroundPosition = pos;
+    puzzle.appendChild(div);
+});
 
-function dragOver(e) {
-    e.preventDefault();
-}
+// lógica de troca
+let primeira = null;
 
-function drop(e) {
-    if (e.target.className === "piece") {
-        let temp = dragged.style.backgroundPosition;
-        dragged.style.backgroundPosition = e.target.style.backgroundPosition;
-        e.target.style.backgroundPosition = temp;
+document.querySelectorAll(".piece").forEach(piece => {
+    piece.addEventListener("click", () => {
+        if (!primeira) {
+            primeira = piece;
+            piece.style.border = "2px solid red";
+        } else {
+            let temp = primeira.style.backgroundPosition;
+            primeira.style.backgroundPosition = piece.style.backgroundPosition;
+            piece.style.backgroundPosition = temp;
 
-        let tempVal = dragged.dataset.value;
-        dragged.dataset.value = e.target.dataset.value;
-        e.target.dataset.value = tempVal;
-
-        verificar();
-    }
-}
-
-function verificar() {
-    const pieces = document.querySelectorAll(".piece");
-    let certo = true;
-
-    pieces.forEach((p, i) => {
-        if (parseInt(p.dataset.value) !== i) {
-            certo = false;
+            primeira.style.border = "1px solid #fff";
+            primeira = null;
         }
     });
-
-    if (certo) {
-        finalMsg.classList.remove("hidden");
-    }
-}
+});
