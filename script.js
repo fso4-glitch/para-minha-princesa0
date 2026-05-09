@@ -38,7 +38,7 @@ function embaralhar() {
   });
 }
 
-// verificar
+// verificar se completou
 function verificar() {
   let pieces = document.querySelectorAll(".piece");
   let certo = true;
@@ -51,12 +51,21 @@ function verificar() {
 
   if (certo) {
     setTimeout(() => {
-      alert("Você montou ❤️\nEu te amo 💖");
-    }, 200);
+      document.getElementById("declaracao").style.display = "block";
+
+      // 🔥 desce suave
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+      });
+
+      // 🔊 toca música automaticamente
+      document.getElementById("musica").play();
+    }, 300);
   }
 }
 
-// troca
+// troca peças
 function trocar(a, b) {
   let temp = a.style.backgroundPosition;
   a.style.backgroundPosition = b.style.backgroundPosition;
@@ -82,7 +91,7 @@ document.querySelectorAll(".piece").forEach(piece => {
     }
   });
 
-  // MOBILE
+  // 📱 mobile
   piece.addEventListener("touchstart", () => {
     arrastando = piece;
   });
@@ -97,5 +106,5 @@ document.querySelectorAll(".piece").forEach(piece => {
   });
 });
 
-// iniciar embaralhado
+// iniciar
 window.onload = embaralhar;
