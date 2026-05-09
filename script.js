@@ -4,16 +4,17 @@ const musica = document.getElementById("musica");
 const mensagem = document.getElementById("mensagem");
 const tituloMensagem = document.getElementById("tituloMensagem");
 
-let pecas = [];
 let ordem = [];
+let selecionada = null;
 
-// cria peças
-for (let i = 0; i < 9; i++) {
-  pecas.push(i);
+// cria ordem embaralhada SEM BUG
+function embaralhar() {
+  ordem = [...Array(9).keys()];
+  for (let i = ordem.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [ordem[i], ordem[j]] = [ordem[j], ordem[i]];
+  }
 }
-
-// embaralhar
-ordem = pecas.sort(() => Math.random() - 0.5);
 
 function criarPuzzle() {
   puzzle.innerHTML = "";
@@ -27,46 +28,23 @@ function criarPuzzle() {
 
     div.style.backgroundPosition = `-${x}px -${y}px`;
 
-    div.setAttribute("draggable", true);
-    div.dataset.index = index;
-
-    // arrastar
-    div.addEventListener("dragstart", dragStart);
-    div.addEventListener("dragover", dragOver);
-    div.addEventListener("drop", drop);
-
-    // toque (celular)
-    div.addEventListener("click", () => trocar(index));
+    // 👉 clique/toque (FUNCIONA NO CELULAR)
+    div.addEventListener("click", () => clicar(index));
 
     puzzle.appendChild(div);
   });
 }
 
-let arrastando = null;
-
-function dragStart(e) {
-  arrastando = e.target.dataset.index;
-}
-
-function dragOver(e) {
-  e.preventDefault();
-}
-
-function drop(e) {
-  const alvo = e.target.dataset.index;
-  trocarPecas(arrastando, alvo);
-}
-
-function trocar(index) {
-  if (arrastando === null) {
-    arrastando = index;
+function clicar(index) {
+  if (selecionada === null) {
+    selecionada = index;
   } else {
-    trocarPecas(arrastando, index);
-    arrastando = null;
+    trocar(selecionada, index);
+    selecionada = null;
   }
 }
 
-function trocarPecas(i1, i2) {
+function trocar(i1, i2) {
   [ordem[i1], ordem[i2]] = [ordem[i2], ordem[i1]];
   criarPuzzle();
   verificar();
@@ -76,17 +54,14 @@ function verificar() {
   let correto = ordem.every((num, i) => num === i);
 
   if (correto) {
-    // 🎵 mostra áudio
     audioBox.style.display = "block";
-
-    // 💖 mostra mensagem
     mensagem.style.display = "block";
     tituloMensagem.style.display = "block";
 
-    // tenta tocar
     musica.play();
   }
 }
 
-// iniciar já embaralhado
+// INICIAR CERTO
+embaralhar();
 criarPuzzle();
