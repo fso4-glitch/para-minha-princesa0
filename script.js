@@ -1,120 +1,92 @@
 const puzzle = document.getElementById("puzzle");
+const audioBox = document.getElementById("audioBox");
 const musica = document.getElementById("musica");
+const mensagem = document.getElementById("mensagem");
+const tituloMensagem = document.getElementById("tituloMensagem");
 
-// 🔒 garante que começa escondido
-musica.style.display = "none";
+let pecas = [];
+let ordem = [];
 
-const correto = [
-  "0% 0%",
-  "50% 0%",
-  "100% 0%",
-  "0% 50%",
-  "50% 50%",
-  "100% 50%",
-  "0% 100%",
-  "50% 100%",
-  "100% 100%"
-];
-
-// criar peças
-correto.forEach(pos => {
-  let div = document.createElement("div");
-  div.className = "piece";
-  div.style.backgroundPosition = pos;
-  div.setAttribute("draggable", true);
-  puzzle.appendChild(div);
-});
+// cria peças
+for (let i = 0; i < 9; i++) {
+  pecas.push(i);
+}
 
 // embaralhar
-function embaralhar() {
-  let pieces = document.querySelectorAll(".piece");
-  let posicoes = [];
+ordem = pecas.sort(() => Math.random() - 0.5);
 
-  pieces.forEach(p => posicoes.push(p.style.backgroundPosition));
+function criarPuzzle() {
+  puzzle.innerHTML = "";
 
-  for (let i = posicoes.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [posicoes[i], posicoes[j]] = [posicoes[j], posicoes[i]];
-  }
+  ordem.forEach((num, index) => {
+    const div = document.createElement("div");
+    div.classList.add("peca");
 
-  pieces.forEach((p, i) => {
-    p.style.backgroundPosition = posicoes[i];
+    const x = (num % 3) * 100;
+    const y = Math.floor(num / 3) * 100;
+
+    div.style.backgroundPosition = `-${x}px -${y}px`;
+
+    div.setAttribute("draggable", true);
+    div.dataset.index = index;
+
+    // arrastar
+    div.addEventListener("dragstart", dragStart);
+    div.addEventListener("dragover", dragOver);
+    div.addEventListener("drop", drop);
+
+    // toque (celular)
+    div.addEventListener("click", () => trocar(index));
+
+    puzzle.appendChild(div);
   });
-}
-
-// verificar
-function verificar() {
-  let pieces = document.querySelectorAll(".piece");
-  let certo = true;
-
-  pieces.forEach((p, i) => {
-    if (p.style.backgroundPosition !== correto[i]) {
-      certo = false;
-    }
-  });
-
-  if (certo) {
-    setTimeout(() => {
-
-      // 💖 mostra declaração
-      document.getElementById("declaracao").style.display = "block";
-
-      // 🎵 mostra música
-      musica.style.display = "block";
-
-      // tenta tocar
-      musica.play().catch(() => {});
-
-      // scroll suave
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth"
-      });
-
-    }, 300);
-  }
-}
-
-// troca
-function trocar(a, b) {
-  let temp = a.style.backgroundPosition;
-  a.style.backgroundPosition = b.style.backgroundPosition;
-  b.style.backgroundPosition = temp;
-  verificar();
 }
 
 let arrastando = null;
 
-document.querySelectorAll(".piece").forEach(piece => {
+function dragStart(e) {
+  arrastando = e.target.dataset.index;
+}
 
-  piece.addEventListener("dragstart", () => {
-    arrastando = piece;
-  });
+function dragOver(e) {
+  e.preventDefault();
+}
 
-  piece.addEventListener("dragover", (e) => {
-    e.preventDefault();
-  });
+function drop(e) {
+  const alvo = e.target.dataset.index;
+  trocarPecas(arrastando, alvo);
+}
 
-  piece.addEventListener("drop", () => {
-    if (arrastando && arrastando !== piece) {
-      trocar(arrastando, piece);
-    }
-  });
+function trocar(index) {
+  if (arrastando === null) {
+    arrastando = index;
+  } else {
+    trocarPecas(arrastando, index);
+    arrastando = null;
+  }
+}
 
-  // 📱 mobile
-  piece.addEventListener("touchstart", () => {
-    arrastando = piece;
-  });
+function trocarPecas(i1, i2) {
+  [ordem[i1], ordem[i2]] = [ordem[i2], ordem[i1]];
+  criarPuzzle();
+  verificar();
+}
 
-  piece.addEventListener("touchend", (e) => {
-    let touch = e.changedTouches[0];
-    let alvo = document.elementFromPoint(touch.clientX, touch.clientY);
+function verificar() {
+  let correto = ordem.every((num, i) => num === i);
 
-    if (alvo && alvo.classList.contains("piece") && arrastando !== alvo) {
-      trocar(arrastando, alvo);
-    }
-  });
-});
+  if (correto) {
+    // 🎵 mostra áudio
+    audioBox.style.display = "block";
 
-// iniciar
-window.onload = embaralhar;
+    // 💖 mostra mensagem
+    mensagem.style.display = "block";
+    tituloMensagem.style.display = "block";
+
+    // tenta tocar
+    musica.play();
+  }
+}
+
+// iniciar já embaralhado
+criarPuzzle();

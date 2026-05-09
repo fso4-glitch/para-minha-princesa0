@@ -1,69 +1,50 @@
 body {
-    text-align: center;
-    background: linear-gradient(135deg, #2a003f, #ff4da6);
-    color: white;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 28px;
-}
-
-p {
-    font-size: 16px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #6a0dad, #ff4da6);
+  color: white;
+  margin: 0;
+  padding: 20px;
 }
 
 #puzzle {
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.peca {
+  width: 100px;
+  height: 100px;
+  background-image: url("../foto.jpg");
+  background-size: 300px 300px;
+  border: 1px solid white;
+}
+
+/* 🎵 ÁUDIO CENTRALIZADO */
+.audio-container {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.audio-container audio {
+  width: 90%;
+  max-width: 300px;
+  border-radius: 20px;
+}
+
+/* 📱 AJUSTE PRA CELULAR */
+@media (max-width: 400px) {
+  #puzzle {
     width: 90vw;
-    max-width: 360px;
     height: 90vw;
-    max-height: 360px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin: 20px auto;
-    border-radius: 15px;
-    overflow: hidden;
-}
+  }
 
-.piece {
-    border: 1px solid rgba(255,255,255,0.3);
-    background-image: url('/foto.jpg');
-    background-size: 300% 300%;
-    touch-action: none;
-}
-
-/* 🔒 ESCONDE A MUSICA */
-#musica {
-    display: none;
-}
-
-/* 💖 DECLARAÇÃO */
-#declaracao {
-    margin-top: 30px;
-    animation: aparecer 1s ease;
-}
-
-.texto-amor {
-    font-size: 18px;
-    line-height: 1.6;
-    padding: 15px;
-}
-
-.musica-frase {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #ffd1ec;
-}
-
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  .peca {
+    width: 100%;
+    height: 100%;
+  }
 }
