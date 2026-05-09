@@ -1,6 +1,7 @@
 const puzzle = document.getElementById("puzzle");
 
-let positions = [
+// posições corretas
+const correto = [
   "0px 0px",
   "-120px 0px",
   "-240px 0px",
@@ -12,13 +13,15 @@ let positions = [
   "-240px -240px"
 ];
 
-positions.forEach(pos => {
+// criar peças
+correto.forEach(pos => {
   let div = document.createElement("div");
   div.className = "piece";
   div.style.backgroundPosition = pos;
   puzzle.appendChild(div);
 });
 
+// embaralhar
 function embaralhar() {
   let pieces = document.querySelectorAll(".piece");
   let posicoes = [];
@@ -35,6 +38,25 @@ function embaralhar() {
   });
 }
 
+// verificar se terminou
+function verificar() {
+  let pieces = document.querySelectorAll(".piece");
+  let certo = true;
+
+  pieces.forEach((p, i) => {
+    if (p.style.backgroundPosition !== correto[i]) {
+      certo = false;
+    }
+  });
+
+  if (certo) {
+    setTimeout(() => {
+      alert("Você conseguiu ❤️\nEu te amo 💖");
+    }, 200);
+  }
+}
+
+// troca peças
 let primeira = null;
 
 document.querySelectorAll(".piece").forEach(piece => {
@@ -49,6 +71,11 @@ document.querySelectorAll(".piece").forEach(piece => {
 
       primeira.style.border = "1px solid #fff";
       primeira = null;
+
+      verificar(); // 👈 verifica depois de cada jogada
     }
   });
 });
+
+// 🔥 embaralha automaticamente ao abrir
+window.onload = embaralhar;
