@@ -1,15 +1,15 @@
 const puzzle = document.getElementById("puzzle");
 
 const correto = [
-  "0px 0px",
-  "-120px 0px",
-  "-240px 0px",
-  "0px -120px",
-  "-120px -120px",
-  "-240px -120px",
-  "0px -240px",
-  "-120px -240px",
-  "-240px -240px"
+  "0% 0%",
+  "50% 0%",
+  "100% 0%",
+  "0% 50%",
+  "50% 50%",
+  "100% 50%",
+  "0% 100%",
+  "50% 100%",
+  "100% 100%"
 ];
 
 // criar peças
@@ -38,7 +38,7 @@ function embaralhar() {
   });
 }
 
-// verificar vitória
+// verificar
 function verificar() {
   let pieces = document.querySelectorAll(".piece");
   let certo = true;
@@ -56,7 +56,14 @@ function verificar() {
   }
 }
 
-// drag (PC)
+// troca
+function trocar(a, b) {
+  let temp = a.style.backgroundPosition;
+  a.style.backgroundPosition = b.style.backgroundPosition;
+  b.style.backgroundPosition = temp;
+  verificar();
+}
+
 let arrastando = null;
 
 document.querySelectorAll(".piece").forEach(piece => {
@@ -75,7 +82,7 @@ document.querySelectorAll(".piece").forEach(piece => {
     }
   });
 
-  // mobile (toque)
+  // MOBILE
   piece.addEventListener("touchstart", () => {
     arrastando = piece;
   });
@@ -89,15 +96,6 @@ document.querySelectorAll(".piece").forEach(piece => {
     }
   });
 });
-
-// função troca
-function trocar(a, b) {
-  let temp = a.style.backgroundPosition;
-  a.style.backgroundPosition = b.style.backgroundPosition;
-  b.style.backgroundPosition = temp;
-
-  verificar();
-}
 
 // iniciar embaralhado
 window.onload = embaralhar;
