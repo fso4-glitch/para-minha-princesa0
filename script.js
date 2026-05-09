@@ -1,6 +1,5 @@
 const puzzle = document.getElementById("puzzle");
 
-// posições da imagem
 let positions = [
   "0px 0px",
   "-120px 0px",
@@ -13,7 +12,6 @@ let positions = [
   "-240px -240px"
 ];
 
-// criar peças
 positions.forEach(pos => {
   let div = document.createElement("div");
   div.className = "piece";
@@ -21,7 +19,6 @@ positions.forEach(pos => {
   puzzle.appendChild(div);
 });
 
-// função embaralhar
 function embaralhar() {
   let pieces = document.querySelectorAll(".piece");
   let posicoes = [];
@@ -38,7 +35,6 @@ function embaralhar() {
   });
 }
 
-// trocar peças
 let primeira = null;
 
 document.querySelectorAll(".piece").forEach(piece => {
