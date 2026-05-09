@@ -1,6 +1,5 @@
 const puzzle = document.getElementById("puzzle");
 
-// posições corretas
 const correto = [
   "0px 0px",
   "-120px 0px",
@@ -18,6 +17,7 @@ correto.forEach(pos => {
   let div = document.createElement("div");
   div.className = "piece";
   div.style.backgroundPosition = pos;
+  div.setAttribute("draggable", true);
   puzzle.appendChild(div);
 });
 
@@ -38,7 +38,7 @@ function embaralhar() {
   });
 }
 
-// verificar se terminou
+// verificar vitória
 function verificar() {
   let pieces = document.querySelectorAll(".piece");
   let certo = true;
@@ -51,31 +51,53 @@ function verificar() {
 
   if (certo) {
     setTimeout(() => {
-      alert("Você conseguiu ❤️\nEu te amo 💖");
+      alert("Você montou ❤️\nEu te amo 💖");
     }, 200);
   }
 }
 
-// troca peças
-let primeira = null;
+// drag (PC)
+let arrastando = null;
 
 document.querySelectorAll(".piece").forEach(piece => {
-  piece.addEventListener("click", () => {
-    if (!primeira) {
-      primeira = piece;
-      piece.style.border = "2px solid red";
-    } else {
-      let temp = primeira.style.backgroundPosition;
-      primeira.style.backgroundPosition = piece.style.backgroundPosition;
-      piece.style.backgroundPosition = temp;
 
-      primeira.style.border = "1px solid #fff";
-      primeira = null;
+  piece.addEventListener("dragstart", () => {
+    arrastando = piece;
+  });
 
-      verificar(); // 👈 verifica depois de cada jogada
+  piece.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+  piece.addEventListener("drop", () => {
+    if (arrastando && arrastando !== piece) {
+      trocar(arrastando, piece);
+    }
+  });
+
+  // mobile (toque)
+  piece.addEventListener("touchstart", () => {
+    arrastando = piece;
+  });
+
+  piece.addEventListener("touchend", (e) => {
+    let touch = e.changedTouches[0];
+    let alvo = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (alvo && alvo.classList.contains("piece") && arrastando !== alvo) {
+      trocar(arrastando, alvo);
     }
   });
 });
 
-// 🔥 embaralha automaticamente ao abrir
+// função troca
+function trocar(a, b) {
+  let temp = a.style.backgroundPosition;
+  a.style.backgroundPosition = b.style.backgroundPosition;
+  b.style.backgroundPosition = temp;
+
+  verificar();
+}
+
+// iniciar embaralhado
 window.onload = embaralhar;
