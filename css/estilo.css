@@ -209,3 +209,10 @@ h1 {
     margin-bottom: 40px; /* sobe ele da parte de baixo */
     font-size: 16px;
 }
+
+/* 🔥 FORÇA ESPAÇO NO FINAL DA PÁGINA */
+body::after {
+    content: "";
+    display: block;
+    height: 120px;
+}
