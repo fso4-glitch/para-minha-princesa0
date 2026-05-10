@@ -8,7 +8,7 @@ body {
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 20px 15px;
 }
 
 h1 {
@@ -157,4 +157,9 @@ html, body {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+}
+
+p, h1 {
+    max-width: 500px;
+    margin: 0 auto;
 }
