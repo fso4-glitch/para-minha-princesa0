@@ -216,3 +216,8 @@ body::after {
     display: block;
     height: 120px;
 }
+
+#declaracao {
+    padding-bottom: 120px;
+    margin-bottom: env(safe-area-inset-bottom);
+}
