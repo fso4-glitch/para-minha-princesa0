@@ -210,13 +210,10 @@ h1 {
     font-size: 16px;
 }
 
-/* 🔥 FORÇA ESPAÇO NO FINAL DA PÁGINA */
-body::after {
-    content: "";
-    display: block;
-    height: 120px;
-}
-/* 🔥 GARANTE ESPAÇO REAL NO FINAL (celular) */
 #declaracao {
     padding-bottom: 1px;
+}
+
+.musica-frase {
+    margin-bottom: 0;
 }
