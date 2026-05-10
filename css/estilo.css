@@ -186,3 +186,20 @@ p, h1 {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* 🔥 AJUSTE REAL DO TEXTO DO MEIO */
+body > p {
+    font-size: 15px !important;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+/* 🔥 DESCE MAIS O TOPO */
+body {
+    padding-top: 40px !important;
+}
+
+/* 🔥 SEGURA O TAMANHO DO TÍTULO */
+h1 {
+    font-size: 22px !important;
+}
