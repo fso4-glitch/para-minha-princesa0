@@ -216,8 +216,7 @@ body::after {
     display: block;
     height: 120px;
 }
-
+/* 🔥 GARANTE ESPAÇO REAL NO FINAL (celular) */
 #declaracao {
     padding-bottom: 120px;
-    margin-bottom: env(safe-area-inset-bottom);
 }
