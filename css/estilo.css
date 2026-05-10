@@ -68,33 +68,78 @@ p {
     }
 }
 
-/* 💖 TELA INICIAL */
+/* 💖 FUNDO COM GRADIENTE ANIMADO */
 #inicio {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100vh;
 
-    background: linear-gradient(135deg, #2a003f, #ff4da6);
-
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    text-align: center;
-    color: white;
+    background: linear-gradient(-45deg, #2a003f, #ff4da6, #ff85c1, #3a0ca3);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+
     z-index: 999;
 }
 
-#inicio button {
-    margin-top: 20px;
-    padding: 15px 30px;
+/* 🔥 ANIMAÇÃO DO FUNDO */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 💎 CARD CENTRAL (EFEITO VIDRO) */
+.card-inicio {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+
+    padding: 40px 30px;
+    border-radius: 25px;
+
+    text-align: center;
+    color: white;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
+    max-width: 320px;
+}
+
+/* ✨ TEXTO */
+.card-inicio h1 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.card-inicio p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* 💖 BOTÃO BONITO */
+.card-inicio button {
+    margin-top: 25px;
+
+    padding: 14px 28px;
     border: none;
     border-radius: 30px;
+
     background: white;
     color: #ff4da6;
-    font-size: 18px;
+
+    font-size: 16px;
+    font-weight: bold;
+
     cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* 🔥 EFEITO AO PASSAR O DEDO */
+.card-inicio button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255,255,255,0.6);
 }
