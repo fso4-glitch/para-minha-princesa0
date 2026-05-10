@@ -8,7 +8,7 @@ body {
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px 15px 0px 15px;
+    padding: 20px 15px;
 }
 
 h1 {
@@ -192,11 +192,6 @@ body > p {
     font-size: 15px !important;
     line-height: 1.5;
     margin-top: 20px;
-}
-
-/* 🔥 DESCE MAIS O TOPO */
-body {
-    padding-top: 40px !important;
 }
 
 /* 🔥 SEGURA O TAMANHO DO TÍTULO */
