@@ -203,3 +203,9 @@ body {
 h1 {
     font-size: 22px !important;
 }
+
+.musica-frase {
+    margin-top: 40px;   /* aumenta espaço acima */
+    margin-bottom: 40px; /* sobe ele da parte de baixo */
+    font-size: 16px;
+}
