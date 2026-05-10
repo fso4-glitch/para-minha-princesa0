@@ -67,3 +67,34 @@ p {
         transform: translateY(0);
     }
 }
+
+/* 💖 TELA INICIAL */
+#inicio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+
+    background: linear-gradient(135deg, #2a003f, #ff4da6);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    color: white;
+    z-index: 999;
+}
+
+#inicio button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #ff4da6;
+    font-size: 18px;
+    cursor: pointer;
+}

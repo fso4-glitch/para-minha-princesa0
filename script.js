@@ -118,3 +118,8 @@ document.querySelectorAll(".piece").forEach(piece => {
 
 // iniciar
 window.onload = embaralhar;
+
+function comecar() {
+  document.getElementById("inicio").style.display = "none";
+  document.getElementById("conteudo").style.display = "block";
+}
